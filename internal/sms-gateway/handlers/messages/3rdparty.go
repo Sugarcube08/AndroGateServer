@@ -1,0 +1,330 @@
+package messages
+
+import (
+	"errors"
+	"fmt"
+	"strconv"
+	"time"
+
+	"github.com/android-sms-gateway/client-go/smsgateway"
+	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers/base"
+	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers/converters"
+	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers/middlewares/permissions"
+	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers/middlewares/userauth"
+	"github.com/android-sms-gateway/server/internal/sms-gateway/modules/devices"
+	"github.com/android-sms-gateway/server/internal/sms-gateway/modules/messages"
+	"github.com/capcom6/go-helpers/slices"
+	"github.com/go-playground/validator/v10"
+	"github.com/gofiber/fiber/v2"
+	"github.com/samber/lo"
+	"go.uber.org/fx"
+	"go.uber.org/zap"
+)
+
+const (
+	route3rdPartyGetMessage = "3rdparty.get.message"
+)
+
+type thirdPartyControllerParams struct {
+	fx.In
+
+	MessagesSvc *messages.Service
+	DevicesSvc  *devices.Service
+
+	Validator *validator.Validate
+	Logger    *zap.Logger
+}
+
+type ThirdPartyController struct {
+	base.Handler
+
+	messagesSvc *messages.Service
+	devicesSvc  *devices.Service
+}
+
+func NewThirdPartyController(params thirdPartyControllerParams) *ThirdPartyController {
+	return &ThirdPartyController{
+		Handler: base.Handler{
+			Logger:    params.Logger,
+			Validator: params.Validator,
+		},
+
+		messagesSvc: params.MessagesSvc,
+		devicesSvc:  params.DevicesSvc,
+	}
+}
+
+//	@Summary		Enqueue message
+//	@Description	Enqueues a message for sending. If `deviceId` is set, the specified device is used; otherwise a random registered device is chosen.
+//	@Security		ApiAuth
+//	@Security		JWTAuth
+//	@Tags			User, Messages
+//	@Accept			json
+//	@Produce		json
+//	@Param			skipPhoneValidation	query		bool							false	"Skip phone validation"
+//	@Param			deviceActiveWithin	query		int								false	"Filter devices active within the specified number of hours"	default(0)	minimum(0)
+//	@Param			request				body		smsgateway.Message				true	"Send message request"
+//	@Success		202					{object}	smsgateway.GetMessageResponse	"Message enqueued"
+//	@Failure		400					{object}	smsgateway.ErrorResponse		"Invalid request"
+//	@Failure		401					{object}	smsgateway.ErrorResponse		"Unauthorized"
+//	@Failure		403					{object}	smsgateway.ErrorResponse		"Forbidden"
+//	@Failure		409					{object}	smsgateway.ErrorResponse		"Message with the same ID already exists"
+//	@Failure		500					{object}	smsgateway.ErrorResponse		"Internal server error"
+//	@Failure		503					{object}	smsgateway.ErrorResponse		"Queue limits exceeded; ensure device is online"
+//	@Header			202					{string}	Location						"Get message state URL"
+//	@Router			/3rdparty/v1/messages [post]
+//
+// Enqueue message.
+func (h *ThirdPartyController) post(userID string, c *fiber.Ctx) error {
+	var params thirdPartyPostQueryParams
+	if err := h.QueryParserValidator(c, &params); err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
+
+	var req smsgateway.Message
+	if err := h.BodyParserValidator(c, &req); err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
+
+	device, err := h.devicesSvc.GetAny(
+		c.Context(),
+		userID,
+		req.DeviceID,
+		time.Duration(lo.FromPtrOr(params.DeviceActiveWithin, 0))*time.Hour,
+	)
+	if err != nil {
+		h.Logger.Error(
+			"failed to select device",
+			zap.Error(err),
+			zap.String("user_id", userID),
+			zap.String("device_id", req.DeviceID),
+		)
+
+		return fmt.Errorf("failed to select device: %w", err)
+	}
+
+	msg := messageInputFromRequest(req)
+	if msg == nil {
+		return fiber.NewError(fiber.StatusBadRequest, "No message content provided")
+	}
+
+	state, err := h.messagesSvc.Enqueue(
+		c.Context(),
+		*device,
+		*msg,
+		messages.EnqueueOptions{SkipPhoneValidation: lo.FromPtrOr(params.SkipPhoneValidation, false)},
+	)
+	if err != nil {
+		h.Logger.Error(
+			"failed to enqueue message",
+			zap.Error(err),
+			zap.String("user_id", userID),
+			zap.String("device_id", req.DeviceID),
+		)
+
+		return fmt.Errorf("failed to enqueue message: %w", err)
+	}
+
+	location, err := c.GetRouteURL(route3rdPartyGetMessage, fiber.Map{
+		"id": state.ID,
+	})
+	if err != nil {
+		h.Logger.Warn(
+			"failed to get route URL",
+			zap.String("route", route3rdPartyGetMessage),
+			zap.String("id", state.ID),
+			zap.Error(err),
+		)
+	} else {
+		c.Location(location)
+	}
+
+	return c.Status(fiber.StatusAccepted).
+		JSON(smsgateway.GetMessageResponse(converters.MessageStateToDTO(*state)))
+}
+
+// messageInputFromRequest maps the parsed request payload into the messages
+// domain input. Returns nil when no content payload is present (unreachable
+// after BodyParserValidator, kept as a safety net).
+func messageInputFromRequest(req smsgateway.Message) *messages.MessageInput {
+	var textContent *messages.TextContent
+	var dataContent *messages.DataContent
+	var mmsContent *messages.MultimediaContent
+	if text := req.GetTextMessage(); text != nil {
+		textContent = text
+	} else if data := req.GetDataMessage(); data != nil {
+		dataContent = data
+	} else if mms := req.GetMmsMessage(); mms != nil {
+		mmsContent = mms
+	} else {
+		return nil
+	}
+
+	return &messages.MessageInput{
+		MessageContent: messages.MessageContent{
+			TextContent: textContent,
+			DataContent: dataContent,
+			MmsContent:  mmsContent,
+		},
+
+		ID: req.ID,
+
+		PhoneNumbers: req.PhoneNumbers,
+		IsEncrypted:  req.IsEncrypted,
+
+		SimNumber:          req.SimNumber,
+		WithDeliveryReport: req.WithDeliveryReport,
+		TTL:                req.TTL,
+		ValidUntil:         req.ValidUntil,
+		ScheduleAt:         req.ScheduleAt,
+		Priority:           req.Priority,
+	}
+}
+
+//	@Summary		Get messages
+//	@Description	Retrieves a list of messages with filtering and pagination
+//	@Security		ApiAuth
+//	@Security		JWTAuth
+//	@Tags			User, Messages
+//	@Produce		json
+//	@Param			from			query		string							false	"Start date in RFC3339 format"	Format(date-time)
+//	@Param			to				query		string							false	"End date in RFC3339 format"	Format(date-time)
+//	@Param			state			query		smsgateway.ProcessingState		false	"Filter messages by processing state"
+//	@Param			deviceId		query		string							false	"Filter by device ID"																	minLength(21)	maxLength(21)
+//	@Param			limit			query		int								false	"Pagination limit"																		default(50)		minimum(1)	maximum(100)
+//	@Param			offset			query		int								false	"Pagination offset"																		default(0)
+//	@Param			includeContent	query		bool							false	"Include textMessage/dataMessage/mmsMessage content for each message. Default is false"	default(false)
+//	@Param			sort			query		string							false	"Sort order per JSON:API spec. Use created_at (ascending) or -created_at (descending)"	Enums(created_at, -created_at)	default(-created_at)
+//	@Success		200				{object}	smsgateway.GetMessagesResponse	"A list of messages"
+//	@Header			200				{integer}	X-Total-Count					"Total number of items available"
+//	@Failure		400				{object}	smsgateway.ErrorResponse		"Invalid request"
+//	@Failure		401				{object}	smsgateway.ErrorResponse		"Unauthorized"
+//	@Failure		403				{object}	smsgateway.ErrorResponse		"Forbidden"
+//	@Failure		500				{object}	smsgateway.ErrorResponse		"Internal server error"
+//	@Router			/3rdparty/v1/messages [get]
+//
+// Get message history.
+func (h *ThirdPartyController) list(userID string, c *fiber.Ctx) error {
+	params := new(thirdPartyGetQueryParams)
+	if err := h.QueryParserValidator(c, params); err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
+
+	if params.Sort == nil {
+		params.Sort = lo.ToPtr(smsgateway.CreatedAtDescending)
+	}
+
+	messages, total, err := h.messagesSvc.SelectStates(userID, params.ToFilter(), params.ToOptions())
+	if err != nil {
+		h.Logger.Error("failed to get message history", zap.Error(err), zap.String("user_id", userID))
+		return fiber.NewError(fiber.StatusInternalServerError, "failed to retrieve message history")
+	}
+
+	c.Set("X-Total-Count", strconv.Itoa(int(total)))
+	return c.JSON(
+		slices.Map(messages, converters.MessageStateToDTO),
+	)
+}
+
+//	@Summary		Get message state
+//	@Description	Returns message state by ID
+//	@Security		ApiAuth
+//	@Security		JWTAuth
+//	@Tags			User, Messages
+//	@Produce		json
+//	@Param			id	path		string							true	"Message ID"
+//	@Success		200	{object}	smsgateway.GetMessageResponse	"Message state"
+//	@Failure		400	{object}	smsgateway.ErrorResponse		"Invalid request"
+//	@Failure		401	{object}	smsgateway.ErrorResponse		"Unauthorized"
+//	@Failure		403	{object}	smsgateway.ErrorResponse		"Forbidden"
+//	@Failure		500	{object}	smsgateway.ErrorResponse		"Internal server error"
+//	@Router			/3rdparty/v1/messages/{id} [get]
+//
+// Get message state.
+func (h *ThirdPartyController) get(userID string, c *fiber.Ctx) error {
+	id := c.Params("id")
+
+	state, err := h.messagesSvc.GetState(userID, id)
+	if err != nil {
+		if errors.Is(err, messages.ErrMessageNotFound) {
+			return fiber.NewError(fiber.StatusNotFound, err.Error())
+		}
+
+		h.Logger.Error("failed to get message state", zap.Error(err), zap.String("user_id", userID))
+		return fiber.NewError(fiber.StatusInternalServerError, "failed to get message state")
+	}
+
+	return c.JSON(converters.MessageStateToDTO(*state))
+}
+
+//	@Summary		Cancel message
+//	@Description	Cancels a pending message by ID. The message must be in Pending state.
+//	@Security		ApiAuth
+//	@Security		JWTAuth
+//	@Tags			User, Messages
+//	@Param			id	path		string							true	"Message ID"
+//	@Success		200	{object}	smsgateway.GetMessageResponse	"Message state after cancellation"
+//	@Failure		400	{object}	smsgateway.ErrorResponse		"Invalid request"
+//	@Failure		401	{object}	smsgateway.ErrorResponse		"Unauthorized"
+//	@Failure		403	{object}	smsgateway.ErrorResponse		"Forbidden"
+//	@Failure		404	{object}	smsgateway.ErrorResponse		"Message not found"
+//	@Failure		500	{object}	smsgateway.ErrorResponse		"Internal server error"
+//	@Router			/3rdparty/v1/messages/{id} [delete]
+//
+// Cancel message.
+func (h *ThirdPartyController) delete(userID string, c *fiber.Ctx) error {
+	id := c.Params("id")
+
+	state, err := h.messagesSvc.CancelMessage(userID, id)
+	if err != nil {
+		return fmt.Errorf("failed to cancel message: %w", err)
+	}
+
+	return c.JSON(converters.MessageStateToDTO(*state))
+}
+
+func (h *ThirdPartyController) errorHandler(c *fiber.Ctx) error {
+	err := c.Next()
+	if err == nil {
+		return nil
+	}
+
+	if fiberError, ok := errors.AsType[*fiber.Error](err); ok {
+		return fiberError
+	}
+
+	var msgValidationError messages.ValidationError
+	switch {
+	case errors.As(err, &msgValidationError):
+		return fiber.NewError(fiber.StatusBadRequest, msgValidationError.Error())
+	case errors.Is(err, messages.ErrMultipleMessagesFound):
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	case errors.Is(err, messages.ErrNoContent):
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	case errors.Is(err, messages.ErrMessageNotFound):
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
+	case errors.Is(err, messages.ErrMessageAlreadyExists):
+		return fiber.NewError(fiber.StatusConflict, messages.ErrMessageAlreadyExists.Error())
+	case errors.Is(err, messages.ErrQueueLimitExceeded):
+		return fiber.NewError(fiber.StatusServiceUnavailable, err.Error())
+	case errors.Is(err, messages.ErrMessageNotPending):
+		return fiber.NewError(fiber.StatusConflict, err.Error())
+
+	case errors.Is(err, devices.ErrNotFound),
+		errors.Is(err, devices.ErrInvalidFilter),
+		errors.Is(err, devices.ErrMoreThanOne):
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
+
+	h.Logger.Error("failed to handle request", zap.Error(err))
+	return fiber.NewError(fiber.StatusInternalServerError, "failed to handle request")
+}
+
+func (h *ThirdPartyController) Register(router fiber.Router) {
+	router.Use(h.errorHandler)
+
+	router.Get("", permissions.RequireScope(ScopeList), userauth.WithUserID(h.list))
+	router.Post("", permissions.RequireScope(ScopeSend), userauth.WithUserID(h.post))
+	router.Get(":id", permissions.RequireScope(ScopeRead), userauth.WithUserID(h.get)).Name(route3rdPartyGetMessage)
+	router.Delete(":id", permissions.RequireScope(ScopeCancel), userauth.WithUserID(h.delete))
+}

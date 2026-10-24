@@ -1,0 +1,97 @@
+package messages
+
+import (
+	"context"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"time"
+
+	cacheImpl "github.com/go-core-fx/cachefx/cache"
+)
+
+const (
+	cacheTimeout = 100 * time.Millisecond
+
+	// stateCacheKeyVersion namespaces cached message states. Bump it whenever the
+	// cached payload changes shape, so entries written by an older release are
+	// never read back and missing fields cannot survive the deployment.
+	stateCacheKeyVersion = "v2"
+)
+
+func stateCacheKey(userID, id string) string {
+	return stateCacheKeyVersion + ":" + userID + ":" + id
+}
+
+type stateCache struct {
+	ttl time.Duration
+
+	storage cacheImpl.Cache
+}
+
+func newCache(config Config, storage cacheImpl.Cache) *stateCache {
+	return &stateCache{
+		ttl: config.CacheTTL,
+
+		storage: storage,
+	}
+}
+
+func (c *stateCache) Set(ctx context.Context, userID, id string, message *MessageState) error {
+	var (
+		err  error
+		data []byte
+	)
+
+	if message != nil {
+		data, err = json.Marshal(message)
+		if err != nil {
+			return fmt.Errorf("failed to marshal message: %w", err)
+		}
+	}
+
+	ctx, cancel := context.WithTimeout(ctx, cacheTimeout)
+	defer cancel()
+
+	if setErr := c.storage.Set(ctx, stateCacheKey(userID, id), data, cacheImpl.WithTTL(c.ttl)); setErr != nil {
+		return fmt.Errorf("failed to set message in cache: %w", setErr)
+	}
+
+	return nil
+}
+
+func (c *stateCache) Get(ctx context.Context, userID, id string) (*MessageState, error) {
+	ctx, cancel := context.WithTimeout(ctx, cacheTimeout)
+	defer cancel()
+
+	data, err := c.storage.Get(ctx, stateCacheKey(userID, id), cacheImpl.AndSetTTL(c.ttl))
+	if err != nil {
+		return nil, fmt.Errorf("failed to get message from cache: %w", err)
+	}
+
+	if len(data) == 0 {
+		return nil, nil //nolint:nilnil //empty cached value is used for caching "Not Found"
+	}
+
+	message := new(MessageState)
+	if jsonErr := json.Unmarshal(data, message); jsonErr != nil {
+		return nil, fmt.Errorf("failed to unmarshal message: %w", jsonErr)
+	}
+
+	// Entries cached before `createdAt` existed still decode, but carry a zero creation time.
+	// Report them as a miss so the caller reloads from the database instead of renewing them.
+	if message.CreatedAt.IsZero() {
+		return nil, ErrStaleCacheEntry
+	}
+
+	return message, nil
+}
+
+func (c *stateCache) Delete(ctx context.Context, userID, id string) error {
+	err := c.storage.Delete(ctx, stateCacheKey(userID, id))
+	if err == nil || errors.Is(err, cacheImpl.ErrKeyNotFound) {
+		return nil
+	}
+
+	return fmt.Errorf("failed to delete message from cache: %w", err)
+}
