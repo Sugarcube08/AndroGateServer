@@ -4,7 +4,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/android-sms-gateway/server/internal/sms-gateway/openapi"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/openapi"
 	"github.com/gofiber/fiber/v2"
 )
 

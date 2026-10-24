@@ -3,7 +3,7 @@ package users
 import (
 	"fmt"
 
-	"github.com/android-sms-gateway/server/internal/sms-gateway/cache"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/cache"
 	"github.com/capcom6/go-infra-fx/db"
 	"github.com/go-core-fx/logger"
 	"go.uber.org/fx"

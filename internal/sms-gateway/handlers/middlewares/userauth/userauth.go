@@ -4,9 +4,9 @@ import (
 	"encoding/base64"
 	"strings"
 
-	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers/middlewares/permissions"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/modules/auth"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/users"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/handlers/middlewares/permissions"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/modules/auth"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/users"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/utils"
 )

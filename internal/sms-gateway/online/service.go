@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/android-sms-gateway/server/internal/sms-gateway/modules/devices"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/modules/devices"
 	"github.com/capcom6/go-helpers/maps"
 	"github.com/go-core-fx/cachefx/cache"
 	"go.uber.org/zap"

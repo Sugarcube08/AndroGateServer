@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/android-sms-gateway/server/internal/sms-gateway/jwt"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/jwt"
 )
 
 func TestConfigValidate(t *testing.T) {

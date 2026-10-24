@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/android-sms-gateway/server/internal/sms-gateway/modules/devices"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/online"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/otp"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/users"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/modules/devices"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/online"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/otp"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/users"
 	"go.uber.org/zap"
 )
 

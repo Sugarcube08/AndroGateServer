@@ -3,8 +3,8 @@ package settings
 import (
 	"fmt"
 
-	"github.com/android-sms-gateway/server/internal/sms-gateway/models"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/users"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/models"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/users"
 	"gorm.io/gorm"
 )
 

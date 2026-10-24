@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/android-sms-gateway/server/internal/sms-gateway/models"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/models"
 	"gorm.io/gorm"
 )
 

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/android-sms-gateway/server/internal/sms-gateway/jwt"
-	"github.com/android-sms-gateway/server/internal/worker/executor"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/jwt"
+	"github.com/Sugarcube08/AndroGateServer/internal/worker/executor"
 	"go.uber.org/zap"
 )
 

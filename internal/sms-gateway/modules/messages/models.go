@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/android-sms-gateway/client-go/smsgateway"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/models"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/modules/devices"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/models"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/modules/devices"
 	"github.com/samber/lo"
 	"gorm.io/gorm"
 )

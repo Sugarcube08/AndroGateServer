@@ -2,9 +2,9 @@ package handlers
 
 import (
 	"github.com/android-sms-gateway/client-go/smsgateway"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers/base"
-	"github.com/android-sms-gateway/server/internal/version"
-	"github.com/android-sms-gateway/server/pkg/health"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/handlers/base"
+	"github.com/Sugarcube08/AndroGateServer/internal/version"
+	"github.com/Sugarcube08/AndroGateServer/pkg/health"
 	"github.com/gofiber/fiber/v2"
 	"github.com/samber/lo"
 	"go.uber.org/zap"

@@ -3,9 +3,9 @@ package jwtauth
 import (
 	"strings"
 
-	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers/middlewares/permissions"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers/middlewares/userauth"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/jwt"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/handlers/middlewares/permissions"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/handlers/middlewares/userauth"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/jwt"
 	"github.com/gofiber/fiber/v2"
 )
 

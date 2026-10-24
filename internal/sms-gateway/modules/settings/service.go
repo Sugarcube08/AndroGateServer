@@ -1,7 +1,7 @@
 package settings
 
 import (
-	"github.com/android-sms-gateway/server/internal/sms-gateway/modules/events"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/modules/events"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 )

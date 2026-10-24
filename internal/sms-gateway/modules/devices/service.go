@@ -6,7 +6,7 @@ import (
 	"math/rand/v2"
 	"time"
 
-	"github.com/android-sms-gateway/server/internal/sms-gateway/modules/db"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/modules/db"
 	"go.uber.org/zap"
 )
 

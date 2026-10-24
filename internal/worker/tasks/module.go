@@ -1,9 +1,9 @@
 package tasks
 
 import (
-	"github.com/android-sms-gateway/server/internal/worker/tasks/devices"
-	"github.com/android-sms-gateway/server/internal/worker/tasks/messages"
-	"github.com/android-sms-gateway/server/internal/worker/tasks/tokens"
+	"github.com/Sugarcube08/AndroGateServer/internal/worker/tasks/devices"
+	"github.com/Sugarcube08/AndroGateServer/internal/worker/tasks/messages"
+	"github.com/Sugarcube08/AndroGateServer/internal/worker/tasks/tokens"
 	"github.com/go-core-fx/logger"
 	"go.uber.org/fx"
 )

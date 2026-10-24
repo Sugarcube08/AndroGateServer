@@ -1,4 +1,4 @@
-module github.com/android-sms-gateway/server
+module github.com/Sugarcube08/AndroGateServer
 
 go 1.26.0
 

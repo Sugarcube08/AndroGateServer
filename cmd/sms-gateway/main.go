@@ -3,9 +3,9 @@ package main
 import (
 	"os"
 
-	"github.com/android-sms-gateway/server/internal/health"
-	smsgateway "github.com/android-sms-gateway/server/internal/sms-gateway"
-	"github.com/android-sms-gateway/server/internal/worker"
+	"github.com/Sugarcube08/AndroGateServer/internal/health"
+	smsgateway "github.com/Sugarcube08/AndroGateServer/internal/sms-gateway"
+	"github.com/Sugarcube08/AndroGateServer/internal/worker"
 )
 
 const (

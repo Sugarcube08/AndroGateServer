@@ -1,4 +1,4 @@
-module github.com/android-sms-gateway/server/test/e2e
+module github.com/Sugarcube08/AndroGateServer/test/e2e
 
 go 1.26.0
 

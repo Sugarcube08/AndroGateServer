@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/android-sms-gateway/server/internal/worker/locker"
+	"github.com/Sugarcube08/AndroGateServer/internal/worker/locker"
 	"go.uber.org/zap"
 )
 

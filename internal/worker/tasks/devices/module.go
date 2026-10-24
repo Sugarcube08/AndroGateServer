@@ -1,8 +1,8 @@
 package devices
 
 import (
-	"github.com/android-sms-gateway/server/internal/sms-gateway/modules/devices"
-	"github.com/android-sms-gateway/server/internal/worker/executor"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/modules/devices"
+	"github.com/Sugarcube08/AndroGateServer/internal/worker/executor"
 	"github.com/go-core-fx/logger"
 	"go.uber.org/fx"
 )

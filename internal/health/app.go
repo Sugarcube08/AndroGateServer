@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/android-sms-gateway/server/internal/config"
+	"github.com/Sugarcube08/AndroGateServer/internal/config"
 	"github.com/go-core-fx/logger"
 	"go.uber.org/fx"
 )

@@ -1,7 +1,7 @@
 package openapi
 
 import (
-	"github.com/android-sms-gateway/server/internal/version"
+	"github.com/Sugarcube08/AndroGateServer/internal/version"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/etag"
 	"github.com/gofiber/swagger"

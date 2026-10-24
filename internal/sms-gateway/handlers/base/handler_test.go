@@ -8,7 +8,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers/base"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/handlers/base"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"go.uber.org/zap/zaptest"

@@ -15,7 +15,7 @@ COPY . .
 
 # Compile statically linked binary using repository code
 RUN CGO_ENABLED=0 go build -a -installsuffix cgo \
-    -ldflags="-w -s -X github.com/android-sms-gateway/server/internal/version.AppVersion=${APP_VERSION} -X github.com/android-sms-gateway/server/internal/version.AppRelease=${APP_RELEASE_ID}" \
+    -ldflags="-w -s -X github.com/Sugarcube08/AndroGateServer/internal/version.AppVersion=${APP_VERSION} -X github.com/Sugarcube08/AndroGateServer/internal/version.AppRelease=${APP_RELEASE_ID}" \
     -o app ./cmd/${APP}/main.go
 
 # Production runtime stage

@@ -1,11 +1,11 @@
 package handlers
 
 import (
-	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers/devices"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers/events"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers/messages"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers/settings"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers/thirdparty"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/handlers/devices"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/handlers/events"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/handlers/messages"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/handlers/settings"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/handlers/thirdparty"
 	"github.com/capcom6/go-infra-fx/http"
 	"go.uber.org/fx"
 	"go.uber.org/zap"

@@ -2,7 +2,7 @@ package messages
 
 import (
 	"github.com/android-sms-gateway/client-go/smsgateway"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/modules/messages"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/modules/messages"
 	"github.com/samber/lo"
 )
 

@@ -9,9 +9,9 @@ import (
 	"time"
 
 	"github.com/android-sms-gateway/client-go/smsgateway"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/modules/db"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/modules/devices"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/modules/events"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/modules/db"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/modules/devices"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/modules/events"
 	"github.com/capcom6/go-helpers/anys"
 	"github.com/capcom6/go-helpers/slices"
 	"github.com/nyaruka/phonenumbers"

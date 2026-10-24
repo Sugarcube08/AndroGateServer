@@ -3,7 +3,7 @@ package config
 import (
 	"time"
 
-	"github.com/android-sms-gateway/server/internal/config"
+	"github.com/Sugarcube08/AndroGateServer/internal/config"
 )
 
 type Config struct {

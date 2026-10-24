@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/android-sms-gateway/server/pkg/pubsub"
+	"github.com/Sugarcube08/AndroGateServer/pkg/pubsub"
 )
 
 const (

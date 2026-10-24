@@ -1,7 +1,7 @@
 package server
 
 import (
-	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/handlers"
 	"github.com/ansrivas/fiberprometheus/v2"
 	"github.com/go-core-fx/fiberfx"
 	"github.com/go-core-fx/fiberfx/statuscode"

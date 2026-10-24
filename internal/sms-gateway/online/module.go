@@ -1,7 +1,7 @@
 package online
 
 import (
-	appCache "github.com/android-sms-gateway/server/internal/sms-gateway/cache"
+	appCache "github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/cache"
 	"github.com/go-core-fx/cachefx/cache"
 	"github.com/go-core-fx/fxutil"
 	"go.uber.org/fx"

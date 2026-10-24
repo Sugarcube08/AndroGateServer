@@ -1,10 +1,10 @@
 package events
 
 import (
-	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers/base"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/handlers/middlewares/deviceauth"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/modules/devices"
-	"github.com/android-sms-gateway/server/internal/sms-gateway/modules/sse"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/handlers/base"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/handlers/middlewares/deviceauth"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/modules/devices"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/modules/sse"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"go.uber.org/zap"

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/android-sms-gateway/server/internal/sms-gateway/otp"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/otp"
 	"github.com/go-core-fx/cachefx/cache"
 	"github.com/go-playground/assert/v2"
 	"go.uber.org/zap"

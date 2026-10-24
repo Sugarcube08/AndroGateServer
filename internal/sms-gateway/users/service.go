@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/android-sms-gateway/server/internal/sms-gateway/jwt"
+	"github.com/Sugarcube08/AndroGateServer/internal/sms-gateway/jwt"
 	"github.com/go-core-fx/cachefx/cache"
 	"go.uber.org/zap"
 )

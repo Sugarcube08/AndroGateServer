@@ -4,7 +4,7 @@ import (
 	"github.com/jaevor/go-nanoid"
 	"go.uber.org/fx"
 
-	healthmod "github.com/android-sms-gateway/server/pkg/health"
+	healthmod "github.com/Sugarcube08/AndroGateServer/pkg/health"
 )
 
 const (

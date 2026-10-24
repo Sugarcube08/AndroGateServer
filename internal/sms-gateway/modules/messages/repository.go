@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/android-sms-gateway/server/pkg/mysql"
+	"github.com/Sugarcube08/AndroGateServer/pkg/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )
