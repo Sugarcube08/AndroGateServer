@@ -1,11 +1,9 @@
 -- +goose Up
 -- +goose StatementBegin
-ALTER TABLE `message_recipients` DROP PRIMARY KEY,
-    ADD UNIQUE `unq_message_recipients_message_id_phone_number` (`message_id`, `phone_number`);
--- +goose StatementEnd
--- +goose StatementBegin
 ALTER TABLE `message_recipients`
-ADD `id` SERIAL NOT NULL PRIMARY KEY FIRST;
+    DROP PRIMARY KEY,
+    ADD `id` SERIAL NOT NULL PRIMARY KEY FIRST,
+    ADD UNIQUE `unq_message_recipients_message_id_phone_number` (`message_id`, `phone_number`);
 -- +goose StatementEnd
 ---
 -- +goose Down

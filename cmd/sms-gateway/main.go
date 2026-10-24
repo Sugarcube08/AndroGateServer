@@ -37,7 +37,7 @@ const (
 //	@description				Private server authentication
 
 //	@title			AndroGate Server API
-//	@version		{APP_VERSION}
+//	@version		1.0.0
 //	@description	Private outbound SMS transport API for CONNECT ME and AndroGate. Features include enqueuing SMS, tracking message delivery, device management, and system health checks.
 
 //	@license.name	Apache 2.0
