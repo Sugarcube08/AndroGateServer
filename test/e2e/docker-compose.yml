@@ -1,6 +1,6 @@
 services:
   public:
-    image: android-sms-gateway/server:public
+    image: androgate/server:public
     build:
       context: ../..
       dockerfile: ./build/package/Dockerfile
@@ -28,7 +28,7 @@ services:
         condition: service_healthy
 
   private:
-    image: android-sms-gateway/server:private
+    image: androgate/server:private
     build:
       context: ../..
       dockerfile: ./build/package/Dockerfile
