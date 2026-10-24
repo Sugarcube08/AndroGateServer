@@ -52,8 +52,8 @@ func (h *rootHandler) registerOpenAPI(router fiber.Router) {
 	}
 
 	router.Use(func(c *fiber.Ctx) error {
-		if c.Path() == "/api" || c.Path() == "/api/" {
-			return c.Redirect("/api/docs", fiber.StatusMovedPermanently)
+		if c.Path() == "" || c.Path() == "/" || c.Path() == "/api" || c.Path() == "/api/" {
+			return c.Redirect("/api/docs/", fiber.StatusMovedPermanently)
 		}
 
 		return c.Next()
