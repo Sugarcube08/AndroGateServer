@@ -121,14 +121,6 @@ func (h *mobileHandler) Register(router fiber.Router) {
 	h.eventsCtrl.Register(router.Group("/events"))
 }
 
-//	@Summary		Get device information
-//	@Description	Returns device information
-//	@Tags			Device
-//	@Produce		json
-//	@Success		200	{object}	smsgateway.MobileDeviceResponse	"Device information"
-//	@Failure		500	{object}	smsgateway.ErrorResponse		"Internal server error"
-//	@Router			/mobile/v1/device [get]
-//
 // Get device information.
 func (h *mobileHandler) getDevice(device devices.Device, c *fiber.Ctx) error {
 	res := smsgateway.MobileDeviceResponse{
@@ -143,22 +135,6 @@ func (h *mobileHandler) getDevice(device devices.Device, c *fiber.Ctx) error {
 	return c.JSON(res)
 }
 
-//	@Summary		Register device
-//	@Description	Registers new device for new or existing user. Returns user credentials only for new users
-//	@Security		ApiAuth
-//	@Security		UserCode
-//	@Security		ServerKey
-//	@Tags			Device
-//	@Accept			json
-//	@Produce		json
-//	@Param			request	body		smsgateway.MobileRegisterRequest	true	"Device registration request"
-//	@Success		201		{object}	smsgateway.MobileRegisterResponse	"Device registered"
-//	@Failure		400		{object}	smsgateway.ErrorResponse			"Invalid request"
-//	@Failure		401		{object}	smsgateway.ErrorResponse			"Unauthorized (private mode only)"
-//	@Failure		429		{object}	smsgateway.ErrorResponse			"Too many requests"
-//	@Failure		500		{object}	smsgateway.ErrorResponse			"Internal server error"
-//	@Router			/mobile/v1/device [post]
-//
 // Register device.
 func (h *mobileHandler) postDevice(c *fiber.Ctx) error {
 	req := new(smsgateway.MobileRegisterRequest)
@@ -211,18 +187,6 @@ func (h *mobileHandler) postDevice(c *fiber.Ctx) error {
 		})
 }
 
-//	@Summary		Update device
-//	@Description	Updates push token for device
-//	@Security		MobileToken
-//	@Tags			Device
-//	@Accept			json
-//	@Param			request	body	smsgateway.MobileUpdateRequest	true	"Device update request"
-//	@Success		204		"Successfully updated"
-//	@Failure		400		{object}	smsgateway.ErrorResponse	"Invalid request"
-//	@Failure		403		{object}	smsgateway.ErrorResponse	"Forbidden (wrong device ID)"
-//	@Failure		500		{object}	smsgateway.ErrorResponse	"Internal server error"
-//	@Router			/mobile/v1/device [patch]
-//
 // Update device.
 func (h *mobileHandler) patchDevice(device devices.Device, c *fiber.Ctx) error {
 	req := new(smsgateway.MobileUpdateRequest)
@@ -248,17 +212,6 @@ func (h *mobileHandler) patchDevice(device devices.Device, c *fiber.Ctx) error {
 	return c.SendStatus(fiber.StatusNoContent)
 }
 
-//	@Summary		Get one-time code for device registration
-//	@Description	Returns one-time code for device registration
-//	@Security		ApiAuth
-//	@Tags			Device
-//	@Accept			json
-//	@Produce		json
-//	@Success		200	{object}	smsgateway.MobileUserCodeResponse	"User code"
-//	@Failure		500	{object}	smsgateway.ErrorResponse			"Internal server error"
-//	@Failure		501	{object}	smsgateway.ErrorResponse			"OTP service disabled"
-//	@Router			/mobile/v1/user/code [get]
-//
 // Get user code.
 func (h *mobileHandler) getUserCode(userID string, c *fiber.Ctx) error {
 	code, err := h.authSvc.GenerateUserCode(c.Context(), userID)
@@ -272,19 +225,6 @@ func (h *mobileHandler) getUserCode(userID string, c *fiber.Ctx) error {
 	})
 }
 
-//	@Summary		Change password
-//	@Description	Changes the user's password
-//	@Security		MobileToken
-//	@Tags			Device
-//	@Accept			json
-//	@Produce		json
-//	@Param			request	body		smsgateway.MobileChangePasswordRequest	true	"Password change request"
-//	@Success		204		{object}	nil										"Password changed successfully"
-//	@Failure		400		{object}	smsgateway.ErrorResponse				"Invalid request"
-//	@Failure		401		{object}	smsgateway.ErrorResponse				"Unauthorized"
-//	@Failure		500		{object}	smsgateway.ErrorResponse				"Internal server error"
-//	@Router			/mobile/v1/user/password [patch]
-//
 // Change password.
 func (h *mobileHandler) changePassword(device devices.Device, c *fiber.Ctx) error {
 	req := new(smsgateway.MobileChangePasswordRequest)

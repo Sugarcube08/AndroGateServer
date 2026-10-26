@@ -40,7 +40,7 @@ func NewThirdPartyController(
 //	@Description	Returns list of registered devices
 //	@Security		ApiAuth
 //	@Security		JWTAuth
-//	@Tags			User, Devices
+//	@Tags			Devices
 //	@Produce		json
 //	@Success		200	{object}	[]smsgateway.Device			"Device list"
 //	@Failure		400	{object}	smsgateway.ErrorResponse	"Invalid request"
@@ -68,7 +68,7 @@ func (h *ThirdPartyController) get(userID string, c *fiber.Ctx) error {
 //	@Description	Removes device
 //	@Security		ApiAuth
 //	@Security		JWTAuth
-//	@Tags			User, Devices
+//	@Tags			Devices
 //	@Produce		json
 //	@Param			id	path	string	true	"Device ID"
 //	@Success		204	"Successfully removed"

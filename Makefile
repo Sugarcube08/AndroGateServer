@@ -33,7 +33,7 @@ deps: ## Install dependencies
 	go mod download
 
 gen: ## Generate code
-	go generate ./...
+	PATH="$(shell go env GOPATH)/bin:$$PATH" go generate ./...
 
 clean: ## Remove build artifacts
 	rm -f coverage.* benchmark.txt

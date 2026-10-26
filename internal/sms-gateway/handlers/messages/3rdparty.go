@@ -58,7 +58,7 @@ func NewThirdPartyController(params thirdPartyControllerParams) *ThirdPartyContr
 //	@Description	Enqueues a message for sending. If `deviceId` is set, the specified device is used; otherwise a random registered device is chosen.
 //	@Security		ApiAuth
 //	@Security		JWTAuth
-//	@Tags			User, Messages
+//	@Tags			Messages
 //	@Accept			json
 //	@Produce		json
 //	@Param			skipPhoneValidation	query		bool							false	"Skip phone validation"
@@ -185,7 +185,7 @@ func messageInputFromRequest(req smsgateway.Message) *messages.MessageInput {
 //	@Description	Retrieves a list of messages with filtering and pagination
 //	@Security		ApiAuth
 //	@Security		JWTAuth
-//	@Tags			User, Messages
+//	@Tags			Messages
 //	@Produce		json
 //	@Param			from			query		string							false	"Start date in RFC3339 format"	Format(date-time)
 //	@Param			to				query		string							false	"End date in RFC3339 format"	Format(date-time)
@@ -230,7 +230,7 @@ func (h *ThirdPartyController) list(userID string, c *fiber.Ctx) error {
 //	@Description	Returns message state by ID
 //	@Security		ApiAuth
 //	@Security		JWTAuth
-//	@Tags			User, Messages
+//	@Tags			Messages
 //	@Produce		json
 //	@Param			id	path		string							true	"Message ID"
 //	@Success		200	{object}	smsgateway.GetMessageResponse	"Message state"
@@ -261,7 +261,7 @@ func (h *ThirdPartyController) get(userID string, c *fiber.Ctx) error {
 //	@Description	Cancels a pending message by ID. The message must be in Pending state.
 //	@Security		ApiAuth
 //	@Security		JWTAuth
-//	@Tags			User, Messages
+//	@Tags			Messages
 //	@Param			id	path		string							true	"Message ID"
 //	@Success		200	{object}	smsgateway.GetMessageResponse	"Message state after cancellation"
 //	@Failure		400	{object}	smsgateway.ErrorResponse		"Invalid request"

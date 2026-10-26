@@ -14,27 +14,12 @@ const (
 )
 
 //	@securitydefinitions.basic	ApiAuth
-//	@description				User authentication
+//	@description				User authentication (HTTP Basic)
 
 //	@securitydefinitions.apikey	JWTAuth
 //	@in							header
 //	@name						Authorization
-//	@description				JWT authentication
-
-//	@securitydefinitions.apikey	UserCode
-//	@in							header
-//	@name						Authorization
-//	@description				User one-time code authentication
-
-//	@securitydefinitions.apikey	MobileToken
-//	@in							header
-//	@name						Authorization
-//	@description				Mobile device token
-
-//	@securitydefinitions.apikey	ServerKey
-//	@in							header
-//	@name						Authorization
-//	@description				Private server authentication
+//	@description				JWT Bearer authentication
 
 //	@title			AndroGate Server API
 //	@version		1.0.0

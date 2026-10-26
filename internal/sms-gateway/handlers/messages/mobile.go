@@ -42,18 +42,6 @@ func NewMobileController(params mobileControllerParams) *MobileController {
 	}
 }
 
-//	@Summary		Get messages for sending
-//	@Description	Returns list of pending messages
-//	@Security		MobileToken
-//	@Tags			Device, Messages
-//	@Accept			json
-//	@Produce		json
-//	@Param			order	query		string									false	"Message processing order: lifo (default) or fifo"	Enums(lifo,fifo)	default(lifo)
-//	@Success		200		{object}	smsgateway.MobileGetMessagesResponse	"List of pending messages"
-//	@Failure		400		{object}	smsgateway.ErrorResponse				"Invalid request"
-//	@Failure		500		{object}	smsgateway.ErrorResponse				"Internal server error"
-//	@Router			/mobile/v1/message [get]
-//
 // Get messages for sending.
 func (h *MobileController) list(device devices.Device, c *fiber.Ctx) error {
 	// Get and validate order parameter
@@ -77,18 +65,6 @@ func (h *MobileController) list(device devices.Device, c *fiber.Ctx) error {
 	)
 }
 
-//	@Summary		Update message state
-//	@Description	Updates message state
-//	@Security		MobileToken
-//	@Tags			Device, Messages
-//	@Accept			json
-//	@Produce		json
-//	@Param			request	body		smsgateway.MobilePatchMessageRequest	true	"List of message state updates"
-//	@Success		204		{object}	nil										"Successfully updated"
-//	@Failure		400		{object}	smsgateway.ErrorResponse				"Invalid request"
-//	@Failure		500		{object}	smsgateway.ErrorResponse				"Internal server error"
-//	@Router			/mobile/v1/message [patch]
-//
 // Update message state.
 func (h *MobileController) patch(device devices.Device, c *fiber.Ctx) error {
 	req := smsgateway.MobilePatchMessageRequest{}

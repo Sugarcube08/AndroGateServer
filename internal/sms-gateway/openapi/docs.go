@@ -37,7 +37,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User",
                     "Auth"
                 ],
                 "summary": "Generate token",
@@ -48,7 +47,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.TokenRequest"
+                            "$ref": "#/definitions/TokenRequest"
                         }
                     }
                 ],
@@ -56,37 +55,37 @@ const docTemplate = `{
                     "201": {
                         "description": "Token",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.TokenResponse"
+                            "$ref": "#/definitions/TokenResponse"
                         }
                     },
                     "400": {
                         "description": "Invalid request",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "501": {
                         "description": "Not implemented",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     }
                 }
@@ -104,7 +103,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User",
                     "Auth"
                 ],
                 "summary": "Refresh token",
@@ -112,31 +110,31 @@ const docTemplate = `{
                     "201": {
                         "description": "Token",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.TokenResponse"
+                            "$ref": "#/definitions/TokenResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "501": {
                         "description": "Not implemented",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     }
                 }
@@ -157,7 +155,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User",
                     "Auth"
                 ],
                 "summary": "Revoke token",
@@ -177,25 +174,25 @@ const docTemplate = `{
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "501": {
                         "description": "Not implemented",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     }
                 }
@@ -216,7 +213,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User",
                     "Devices"
                 ],
                 "summary": "List devices",
@@ -226,32 +222,32 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/smsgateway.Device"
+                                "$ref": "#/definitions/Device"
                             }
                         }
                     },
                     "400": {
                         "description": "Invalid request",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     }
                 }
@@ -272,7 +268,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User",
                     "Devices"
                 ],
                 "summary": "Remove device",
@@ -292,31 +287,31 @@ const docTemplate = `{
                     "400": {
                         "description": "Invalid request",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Device not found",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     }
                 }
@@ -336,13 +331,13 @@ const docTemplate = `{
                     "200": {
                         "description": "Service is ready",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.HealthResponse"
+                            "$ref": "#/definitions/HealthResponse"
                         }
                     },
                     "503": {
                         "description": "Service is not ready",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.HealthResponse"
+                            "$ref": "#/definitions/HealthResponse"
                         }
                     }
                 }
@@ -363,7 +358,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User",
                     "Messages"
                 ],
                 "summary": "Get messages",
@@ -446,7 +440,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/smsgateway.MessageState"
+                                "$ref": "#/definitions/MessageState"
                             }
                         },
                         "headers": {
@@ -459,25 +453,25 @@ const docTemplate = `{
                     "400": {
                         "description": "Invalid request",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     }
                 }
@@ -499,7 +493,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User",
                     "Messages"
                 ],
                 "summary": "Enqueue message",
@@ -524,7 +517,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.Message"
+                            "$ref": "#/definitions/Message"
                         }
                     }
                 ],
@@ -532,7 +525,7 @@ const docTemplate = `{
                     "202": {
                         "description": "Message enqueued",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.GetMessageResponse"
+                            "$ref": "#/definitions/GetMessageResponse"
                         },
                         "headers": {
                             "Location": {
@@ -544,37 +537,37 @@ const docTemplate = `{
                     "400": {
                         "description": "Invalid request",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "409": {
                         "description": "Message with the same ID already exists",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "503": {
                         "description": "Queue limits exceeded; ensure device is online",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     }
                 }
@@ -595,7 +588,6 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User",
                     "Messages"
                 ],
                 "summary": "Get message state",
@@ -612,31 +604,31 @@ const docTemplate = `{
                     "200": {
                         "description": "Message state",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.GetMessageResponse"
+                            "$ref": "#/definitions/GetMessageResponse"
                         }
                     },
                     "400": {
                         "description": "Invalid request",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     }
                 }
@@ -652,7 +644,6 @@ const docTemplate = `{
                 ],
                 "description": "Cancels a pending message by ID. The message must be in Pending state.",
                 "tags": [
-                    "User",
                     "Messages"
                 ],
                 "summary": "Cancel message",
@@ -669,214 +660,37 @@ const docTemplate = `{
                     "200": {
                         "description": "Message state after cancellation",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.GetMessageResponse"
+                            "$ref": "#/definitions/GetMessageResponse"
                         }
                     },
                     "400": {
                         "description": "Invalid request",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Message not found",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Internal server error",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/3rdparty/v1/settings": {
-            "get": {
-                "security": [
-                    {
-                        "ApiAuth": []
-                    },
-                    {
-                        "JWTAuth": []
-                    }
-                ],
-                "description": "Returns settings for a specific user",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "User",
-                    "Settings"
-                ],
-                "summary": "Get settings",
-                "responses": {
-                    "200": {
-                        "description": "Settings",
-                        "schema": {
-                            "$ref": "#/definitions/smsgateway.DeviceSettings"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "security": [
-                    {
-                        "ApiAuth": []
-                    },
-                    {
-                        "JWTAuth": []
-                    }
-                ],
-                "description": "Replaces settings",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "User",
-                    "Settings"
-                ],
-                "summary": "Replace settings",
-                "parameters": [
-                    {
-                        "description": "Settings",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/smsgateway.DeviceSettings"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Settings updated",
-                        "schema": {
-                            "type": "object"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid request",
-                        "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
-                        }
-                    }
-                }
-            },
-            "patch": {
-                "security": [
-                    {
-                        "ApiAuth": []
-                    },
-                    {
-                        "JWTAuth": []
-                    }
-                ],
-                "description": "Partially updates settings for a specific user",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "User",
-                    "Settings"
-                ],
-                "summary": "Partially update settings",
-                "parameters": [
-                    {
-                        "description": "Settings",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/smsgateway.DeviceSettings"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Settings updated",
-                        "schema": {
-                            "type": "object"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid request",
-                        "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "$ref": "#/definitions/smsgateway.ErrorResponse"
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     }
                 }
@@ -896,13 +710,13 @@ const docTemplate = `{
                     "200": {
                         "description": "Service is alive",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.HealthResponse"
+                            "$ref": "#/definitions/HealthResponse"
                         }
                     },
                     "503": {
                         "description": "Service is not alive",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.HealthResponse"
+                            "$ref": "#/definitions/HealthResponse"
                         }
                     }
                 }
@@ -922,13 +736,13 @@ const docTemplate = `{
                     "200": {
                         "description": "Service is ready",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.HealthResponse"
+                            "$ref": "#/definitions/HealthResponse"
                         }
                     },
                     "503": {
                         "description": "Service is not ready",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.HealthResponse"
+                            "$ref": "#/definitions/HealthResponse"
                         }
                     }
                 }
@@ -948,13 +762,13 @@ const docTemplate = `{
                     "200": {
                         "description": "Service has completed initialization",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.HealthResponse"
+                            "$ref": "#/definitions/HealthResponse"
                         }
                     },
                     "503": {
                         "description": "Service has not completed initialization",
                         "schema": {
-                            "$ref": "#/definitions/smsgateway.HealthResponse"
+                            "$ref": "#/definitions/HealthResponse"
                         }
                     }
                 }
@@ -962,7 +776,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "smsgateway.DataMessage": {
+        "DataMessage": {
             "type": "object",
             "required": [
                 "data",
@@ -986,7 +800,7 @@ const docTemplate = `{
                 }
             }
         },
-        "smsgateway.Device": {
+        "Device": {
             "type": "object",
             "properties": {
                 "createdAt": {
@@ -1029,7 +843,7 @@ const docTemplate = `{
                     "description": "List of SIM cards in the device.",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/smsgateway.SimCard"
+                        "$ref": "#/definitions/SimCard"
                     }
                 },
                 "updatedAt": {
@@ -1039,68 +853,7 @@ const docTemplate = `{
                 }
             }
         },
-        "smsgateway.DeviceSettings": {
-            "type": "object",
-            "properties": {
-                "encryption": {
-                    "description": "Encryption contains settings related to message encryption.",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/smsgateway.SettingsEncryption"
-                        }
-                    ]
-                },
-                "gateway": {
-                    "description": "Gateway contains settings related to the gateway.",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/smsgateway.SettingsGateway"
-                        }
-                    ]
-                },
-                "logs": {
-                    "description": "Logs contains settings related to logging.",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/smsgateway.SettingsLogs"
-                        }
-                    ]
-                },
-                "messages": {
-                    "description": "Messages contains settings related to message handling.",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/smsgateway.SettingsMessages"
-                        }
-                    ]
-                },
-                "ping": {
-                    "description": "Ping contains settings related to ping functionality.",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/smsgateway.SettingsPing"
-                        }
-                    ]
-                },
-                "receiver": {
-                    "description": "Receiver contains settings related to SMS message reception.",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/smsgateway.SettingsReceiver"
-                        }
-                    ]
-                },
-                "webhooks": {
-                    "description": "Webhooks contains settings related to webhook functionality.",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/smsgateway.SettingsWebhooks"
-                        }
-                    ]
-                }
-            }
-        },
-        "smsgateway.ErrorResponse": {
+        "ErrorResponse": {
             "type": "object",
             "properties": {
                 "code": {
@@ -1117,7 +870,7 @@ const docTemplate = `{
                 }
             }
         },
-        "smsgateway.GetMessageResponse": {
+        "GetMessageResponse": {
             "type": "object",
             "required": [
                 "deviceId",
@@ -1136,7 +889,7 @@ const docTemplate = `{
                     "description": "Present only when ` + "`" + `includeContent=true` + "`" + ` and the message type is data.",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.DataMessage"
+                            "$ref": "#/definitions/DataMessage"
                         }
                     ]
                 },
@@ -1150,7 +903,7 @@ const docTemplate = `{
                     "description": "Hashed message content, if isHashed is true",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.HashedMessage"
+                            "$ref": "#/definitions/HashedMessage"
                         }
                     ]
                 },
@@ -1174,7 +927,7 @@ const docTemplate = `{
                     "description": "Present only when ` + "`" + `includeContent=true` + "`" + ` and the message type is mms.",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.MmsMessage"
+                            "$ref": "#/definitions/MmsMessage"
                         }
                     ]
                 },
@@ -1183,7 +936,7 @@ const docTemplate = `{
                     "type": "array",
                     "minItems": 1,
                     "items": {
-                        "$ref": "#/definitions/smsgateway.RecipientState"
+                        "$ref": "#/definitions/RecipientState"
                     }
                 },
                 "scheduleAt": {
@@ -1196,7 +949,7 @@ const docTemplate = `{
                     "description": "State",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.ProcessingState"
+                            "$ref": "#/definitions/ProcessingState"
                         }
                     ],
                     "example": "Pending"
@@ -1212,13 +965,13 @@ const docTemplate = `{
                     "description": "Present only when ` + "`" + `includeContent=true` + "`" + ` and the message type is text.",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.TextMessage"
+                            "$ref": "#/definitions/TextMessage"
                         }
                     ]
                 }
             }
         },
-        "smsgateway.HashedMessage": {
+        "HashedMessage": {
             "type": "object",
             "required": [
                 "hash"
@@ -1230,7 +983,7 @@ const docTemplate = `{
                 }
             }
         },
-        "smsgateway.HealthCheck": {
+        "HealthCheck": {
             "type": "object",
             "properties": {
                 "description": {
@@ -1249,26 +1002,26 @@ const docTemplate = `{
                     "description": "Status of the check.\nIt can be one of the following values: \"pass\", \"warn\", or \"fail\".",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.HealthStatus"
+                            "$ref": "#/definitions/HealthStatus"
                         }
                     ]
                 }
             }
         },
-        "smsgateway.HealthChecks": {
+        "HealthChecks": {
             "type": "object",
             "additionalProperties": {
-                "$ref": "#/definitions/smsgateway.HealthCheck"
+                "$ref": "#/definitions/HealthCheck"
             }
         },
-        "smsgateway.HealthResponse": {
+        "HealthResponse": {
             "type": "object",
             "properties": {
                 "checks": {
                     "description": "A map of check names to their respective details.",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.HealthChecks"
+                            "$ref": "#/definitions/HealthChecks"
                         }
                     ]
                 },
@@ -1280,7 +1033,7 @@ const docTemplate = `{
                     "description": "Overall status of the application.\nIt can be one of the following values: \"pass\", \"warn\", or \"fail\".",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.HealthStatus"
+                            "$ref": "#/definitions/HealthStatus"
                         }
                     ]
                 },
@@ -1290,7 +1043,7 @@ const docTemplate = `{
                 }
             }
         },
-        "smsgateway.HealthStatus": {
+        "HealthStatus": {
             "type": "string",
             "enum": [
                 "pass",
@@ -1303,65 +1056,28 @@ const docTemplate = `{
                 "HealthStatusFail"
             ]
         },
-        "smsgateway.JWTScope": {
+        "JWTScope": {
             "type": "string",
             "enum": [
-                "devices:list",
-                "devices:delete",
-                "inbox:list",
-                "inbox:refresh",
-                "inbox:read",
-                "logs:read",
-                "messages:cancel",
                 "messages:send",
                 "messages:read",
                 "messages:list",
-                "messages:export",
-                "settings:read",
-                "settings:write",
-                "tokens:manage",
-                "webhooks:list",
-                "webhooks:write",
-                "webhooks:delete"
+                "messages:cancel",
+                "devices:list",
+                "devices:delete",
+                "tokens:manage"
             ],
             "x-enum-varnames": [
-                "ScopeDevicesList",
-                "ScopeDevicesDelete",
-                "ScopeInboxList",
-                "ScopeInboxRefresh",
-                "ScopeInboxRead",
-                "ScopeLogsRead",
-                "ScopeMessagesCancel",
                 "ScopeMessagesSend",
                 "ScopeMessagesRead",
                 "ScopeMessagesList",
-                "ScopeMessagesExport",
-                "ScopeSettingsRead",
-                "ScopeSettingsWrite",
-                "ScopeTokensManage",
-                "ScopeWebhooksList",
-                "ScopeWebhooksWrite",
-                "ScopeWebhooksDelete"
+                "ScopeMessagesCancel",
+                "ScopeDevicesList",
+                "ScopeDevicesDelete",
+                "ScopeTokensManage"
             ]
         },
-        "smsgateway.LimitPeriod": {
-            "type": "string",
-            "enum": [
-                "Disabled",
-                "PerMinute",
-                "Per30Minutes",
-                "PerHour",
-                "PerDay"
-            ],
-            "x-enum-varnames": [
-                "Disabled",
-                "PerMinute",
-                "Per30Minutes",
-                "PerHour",
-                "PerDay"
-            ]
-        },
-        "smsgateway.Message": {
+        "Message": {
             "type": "object",
             "required": [
                 "phoneNumbers"
@@ -1371,7 +1087,7 @@ const docTemplate = `{
                     "description": "Data message",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.DataMessage"
+                            "$ref": "#/definitions/DataMessage"
                         }
                     ]
                 },
@@ -1402,7 +1118,7 @@ const docTemplate = `{
                     "description": "MMS message",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.MmsMessage"
+                            "$ref": "#/definitions/MmsMessage"
                         }
                     ]
                 },
@@ -1426,7 +1142,7 @@ const docTemplate = `{
                     "minimum": -128,
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.MessagePriority"
+                            "$ref": "#/definitions/MessagePriority"
                         }
                     ],
                     "example": 0
@@ -1448,7 +1164,7 @@ const docTemplate = `{
                     "description": "Text message",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.TextMessage"
+                            "$ref": "#/definitions/TextMessage"
                         }
                     ]
                 },
@@ -1471,7 +1187,7 @@ const docTemplate = `{
                 }
             }
         },
-        "smsgateway.MessagePriority": {
+        "MessagePriority": {
             "type": "integer",
             "format": "int32",
             "enum": [
@@ -1496,7 +1212,7 @@ const docTemplate = `{
                 "PriorityMaximum"
             ]
         },
-        "smsgateway.MessageState": {
+        "MessageState": {
             "type": "object",
             "required": [
                 "deviceId",
@@ -1515,7 +1231,7 @@ const docTemplate = `{
                     "description": "Present only when ` + "`" + `includeContent=true` + "`" + ` and the message type is data.",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.DataMessage"
+                            "$ref": "#/definitions/DataMessage"
                         }
                     ]
                 },
@@ -1529,7 +1245,7 @@ const docTemplate = `{
                     "description": "Hashed message content, if isHashed is true",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.HashedMessage"
+                            "$ref": "#/definitions/HashedMessage"
                         }
                     ]
                 },
@@ -1553,7 +1269,7 @@ const docTemplate = `{
                     "description": "Present only when ` + "`" + `includeContent=true` + "`" + ` and the message type is mms.",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.MmsMessage"
+                            "$ref": "#/definitions/MmsMessage"
                         }
                     ]
                 },
@@ -1562,7 +1278,7 @@ const docTemplate = `{
                     "type": "array",
                     "minItems": 1,
                     "items": {
-                        "$ref": "#/definitions/smsgateway.RecipientState"
+                        "$ref": "#/definitions/RecipientState"
                     }
                 },
                 "scheduleAt": {
@@ -1575,7 +1291,7 @@ const docTemplate = `{
                     "description": "State",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.ProcessingState"
+                            "$ref": "#/definitions/ProcessingState"
                         }
                     ],
                     "example": "Pending"
@@ -1591,24 +1307,13 @@ const docTemplate = `{
                     "description": "Present only when ` + "`" + `includeContent=true` + "`" + ` and the message type is text.",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.TextMessage"
+                            "$ref": "#/definitions/TextMessage"
                         }
                     ]
                 }
             }
         },
-        "smsgateway.MessagesProcessingOrder": {
-            "type": "string",
-            "enum": [
-                "LIFO",
-                "FIFO"
-            ],
-            "x-enum-varnames": [
-                "LIFO",
-                "FIFO"
-            ]
-        },
-        "smsgateway.MmsAttachment": {
+        "MmsAttachment": {
             "type": "object",
             "required": [
                 "contentType",
@@ -1632,14 +1337,14 @@ const docTemplate = `{
                 }
             }
         },
-        "smsgateway.MmsMessage": {
+        "MmsMessage": {
             "type": "object",
             "properties": {
                 "attachments": {
                     "description": "Attachments is the list of attachments. Omitted when empty.",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/smsgateway.MmsAttachment"
+                        "$ref": "#/definitions/MmsAttachment"
                     }
                 },
                 "subject": {
@@ -1654,7 +1359,7 @@ const docTemplate = `{
                 }
             }
         },
-        "smsgateway.ProcessingState": {
+        "ProcessingState": {
             "type": "string",
             "enum": [
                 "Pending",
@@ -1693,7 +1398,7 @@ const docTemplate = `{
                 "ProcessingStateFailed"
             ]
         },
-        "smsgateway.RecipientState": {
+        "RecipientState": {
             "type": "object",
             "required": [
                 "phoneNumber",
@@ -1716,168 +1421,14 @@ const docTemplate = `{
                     "description": "State",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/smsgateway.ProcessingState"
+                            "$ref": "#/definitions/ProcessingState"
                         }
                     ],
                     "example": "Pending"
                 }
             }
         },
-        "smsgateway.SettingsEncryption": {
-            "type": "object",
-            "properties": {
-                "passphrase": {
-                    "description": "Passphrase is the encryption passphrase. If nil or empty, encryption is disabled. Must not be used with Cloud Server.",
-                    "type": "string"
-                }
-            }
-        },
-        "smsgateway.SettingsGateway": {
-            "type": "object",
-            "properties": {
-                "cloud_url": {
-                    "description": "CloudURL is the URL of the cloud server. Must not be used with Cloud Server.",
-                    "type": "string"
-                },
-                "notification_channel": {
-                    "description": "NotificationChannel is the way device receives notifications.",
-                    "type": "string",
-                    "enum": [
-                        "AUTO",
-                        "SSE_ONLY"
-                    ]
-                },
-                "private_token": {
-                    "description": "PrivateToken is the auth token for the private server. Must not be used with Cloud Server.",
-                    "type": "string"
-                }
-            }
-        },
-        "smsgateway.SettingsLogs": {
-            "type": "object",
-            "properties": {
-                "lifetime_days": {
-                    "description": "LifetimeDays is the number of days to retain logs.\nMust be at least 1 when provided.",
-                    "type": "integer",
-                    "minimum": 1
-                }
-            }
-        },
-        "smsgateway.SettingsMessages": {
-            "type": "object",
-            "properties": {
-                "limit_period": {
-                    "description": "LimitPeriod defines the period for message sending limits.\nValid values are \"Disabled\", \"PerMinute\", \"Per30Minutes\", \"PerHour\", or \"PerDay\".",
-                    "enum": [
-                        "Disabled",
-                        "PerMinute",
-                        "Per30Minutes",
-                        "PerHour",
-                        "PerDay"
-                    ],
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/smsgateway.LimitPeriod"
-                        }
-                    ]
-                },
-                "limit_value": {
-                    "description": "LimitValue is the maximum number of messages allowed per limit period.\nMust be at least 1 when provided.",
-                    "type": "integer",
-                    "minimum": 1
-                },
-                "log_lifetime_days": {
-                    "description": "LogLifetimeDays is the number of days to retain message logs.\nMust be at least 1 when provided.",
-                    "type": "integer",
-                    "minimum": 1
-                },
-                "processing_order": {
-                    "description": "MessagesProcessingOrder defines the order in which messages are processed.\nValid values are \"LIFO\" or \"FIFO\".",
-                    "enum": [
-                        "LIFO",
-                        "FIFO"
-                    ],
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/smsgateway.MessagesProcessingOrder"
-                        }
-                    ]
-                },
-                "send_interval_max": {
-                    "description": "SendIntervalMax is the maximum interval between message sends (in seconds).\nMust be at least 1 when provided and greater than or equal to SendIntervalMin.",
-                    "type": "integer",
-                    "minimum": 1
-                },
-                "send_interval_min": {
-                    "description": "SendIntervalMin is the minimum interval between message sends (in seconds).\nMust be at least 1 when provided.",
-                    "type": "integer",
-                    "minimum": 1
-                },
-                "sim_selection_mode": {
-                    "description": "SimSelectionMode defines how SIM cards are selected for sending messages.\nValid values are \"OSDefault\", \"RoundRobin\", or \"Random\".",
-                    "enum": [
-                        "OSDefault",
-                        "RoundRobin",
-                        "Random"
-                    ],
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/smsgateway.SimSelectionMode"
-                        }
-                    ]
-                },
-                "work_hours_enabled": {
-                    "description": "WorkHoursEnabled enables restricting message delivery to a configurable time window.",
-                    "type": "boolean"
-                },
-                "work_hours_end": {
-                    "description": "WorkHoursEnd is the end of the working hours window in HH:mm format (24-hour).",
-                    "type": "string"
-                },
-                "work_hours_start": {
-                    "description": "WorkHoursStart is the start of the working hours window in HH:mm format (24-hour).",
-                    "type": "string"
-                }
-            }
-        },
-        "smsgateway.SettingsPing": {
-            "type": "object",
-            "properties": {
-                "interval_seconds": {
-                    "description": "IntervalSeconds is the interval between ping requests (in seconds).\nMust be at least 1 when provided.",
-                    "type": "integer",
-                    "minimum": 1
-                }
-            }
-        },
-        "smsgateway.SettingsReceiver": {
-            "type": "object",
-            "properties": {
-                "content_provider_enabled": {
-                    "description": "ContentProviderEnabled enables monitoring the SMS content provider as a fallback for\ncarriers that intercept the SMS_RECEIVED broadcast.",
-                    "type": "boolean"
-                }
-            }
-        },
-        "smsgateway.SettingsWebhooks": {
-            "type": "object",
-            "properties": {
-                "internet_required": {
-                    "description": "InternetRequired indicates whether internet access is required for webhooks.",
-                    "type": "boolean"
-                },
-                "retry_count": {
-                    "description": "RetryCount is the number of times to retry failed webhook deliveries.\nMust be at least 1 when provided.",
-                    "type": "integer",
-                    "minimum": 1
-                },
-                "signing_key": {
-                    "description": "SigningKey is the secret key used for signing webhook payloads. Must not be used with Cloud Server.",
-                    "type": "string"
-                }
-            }
-        },
-        "smsgateway.SimCard": {
+        "SimCard": {
             "type": "object",
             "properties": {
                 "carrierName": {
@@ -1902,20 +1453,7 @@ const docTemplate = `{
                 }
             }
         },
-        "smsgateway.SimSelectionMode": {
-            "type": "string",
-            "enum": [
-                "OSDefault",
-                "RoundRobin",
-                "Random"
-            ],
-            "x-enum-varnames": [
-                "OSDefault",
-                "RoundRobin",
-                "Random"
-            ]
-        },
-        "smsgateway.TextMessage": {
+        "TextMessage": {
             "type": "object",
             "required": [
                 "text"
@@ -1930,27 +1468,31 @@ const docTemplate = `{
                 }
             }
         },
-        "smsgateway.TokenRequest": {
+        "TokenRequest": {
             "type": "object",
             "required": [
                 "scopes"
             ],
             "properties": {
                 "scopes": {
-                    "description": "scopes for which the access token is valid",
                     "type": "array",
-                    "minItems": 1,
                     "items": {
-                        "$ref": "#/definitions/smsgateway.JWTScope"
-                    }
+                        "$ref": "#/definitions/JWTScope"
+                    },
+                    "example": [
+                        "messages:send",
+                        "messages:read"
+                    ]
                 },
                 "ttl": {
-                    "description": "lifetime of the access token in seconds",
-                    "type": "integer"
+                    "type": "integer",
+                    "maximum": 2592000,
+                    "minimum": 60,
+                    "example": 3600
                 }
             }
         },
-        "smsgateway.TokenResponse": {
+        "TokenResponse": {
             "type": "object",
             "properties": {
                 "access_token": {
@@ -1982,25 +1524,7 @@ const docTemplate = `{
             "type": "basic"
         },
         "JWTAuth": {
-            "description": "JWT authentication",
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header"
-        },
-        "MobileToken": {
-            "description": "Mobile device token",
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header"
-        },
-        "ServerKey": {
-            "description": "Private server authentication",
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header"
-        },
-        "UserCode": {
-            "description": "User one-time code authentication",
+            "description": "JWT Bearer authentication",
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"

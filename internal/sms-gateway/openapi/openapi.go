@@ -7,7 +7,7 @@ import (
 	"github.com/gofiber/swagger"
 )
 
-//go:generate swag init --parseDependency --tags=User,System --outputTypes go -d ../../../ -g ./cmd/sms-gateway/main.go -o ../../../internal/sms-gateway/openapi
+//go:generate swag init --parseDependency --useStructName --tags=Auth,Messages,Devices,System --outputTypes go -d ../../../ -g ./cmd/sms-gateway/main.go -o ../../../internal/sms-gateway/openapi
 
 type Handler struct {
 }

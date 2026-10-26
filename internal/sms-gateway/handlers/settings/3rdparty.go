@@ -43,18 +43,6 @@ func NewThirdPartyController(params thirdPartyControllerParams) *ThirdPartyContr
 	}
 }
 
-//	@Summary		Get settings
-//	@Description	Returns settings for a specific user
-//	@Security		ApiAuth
-//	@Security		JWTAuth
-//	@Tags			User, Settings
-//	@Produce		json
-//	@Success		200	{object}	smsgateway.DeviceSettings	"Settings"
-//	@Failure		401	{object}	smsgateway.ErrorResponse	"Unauthorized"
-//	@Failure		403	{object}	smsgateway.ErrorResponse	"Forbidden"
-//	@Failure		500	{object}	smsgateway.ErrorResponse	"Internal server error"
-//	@Router			/3rdparty/v1/settings [get]
-//
 // Get settings.
 func (h *ThirdPartyController) get(userID string, c *fiber.Ctx) error {
 	settings, err := h.settingsSvc.GetSettings(userID, true)
@@ -65,21 +53,6 @@ func (h *ThirdPartyController) get(userID string, c *fiber.Ctx) error {
 	return c.JSON(settings)
 }
 
-//	@Summary		Replace settings
-//	@Description	Replaces settings
-//	@Security		ApiAuth
-//	@Security		JWTAuth
-//	@Tags			User, Settings
-//	@Accept			json
-//	@Produce		json
-//	@Param			request	body		smsgateway.DeviceSettings	true	"Settings"
-//	@Success		200		{object}	object						"Settings updated"
-//	@Failure		400		{object}	smsgateway.ErrorResponse	"Invalid request"
-//	@Failure		401		{object}	smsgateway.ErrorResponse	"Unauthorized"
-//	@Failure		403		{object}	smsgateway.ErrorResponse	"Forbidden"
-//	@Failure		500		{object}	smsgateway.ErrorResponse	"Internal server error"
-//	@Router			/3rdparty/v1/settings [put]
-//
 // Update settings.
 func (h *ThirdPartyController) put(userID string, c *fiber.Ctx) error {
 	if err := h.BodyParserValidator(c, new(smsgateway.DeviceSettings)); err != nil {
@@ -101,21 +74,6 @@ func (h *ThirdPartyController) put(userID string, c *fiber.Ctx) error {
 	return c.JSON(updated)
 }
 
-//	@Summary		Partially update settings
-//	@Description	Partially updates settings for a specific user
-//	@Security		ApiAuth
-//	@Security		JWTAuth
-//	@Tags			User, Settings
-//	@Accept			json
-//	@Produce		json
-//	@Param			request	body		smsgateway.DeviceSettings	true	"Settings"
-//	@Success		200		{object}	object						"Settings updated"
-//	@Failure		400		{object}	smsgateway.ErrorResponse	"Invalid request"
-//	@Failure		401		{object}	smsgateway.ErrorResponse	"Unauthorized"
-//	@Failure		403		{object}	smsgateway.ErrorResponse	"Forbidden"
-//	@Failure		500		{object}	smsgateway.ErrorResponse	"Internal server error"
-//	@Router			/3rdparty/v1/settings [patch]
-//
 // Partially update settings.
 func (h *ThirdPartyController) patch(userID string, c *fiber.Ctx) error {
 	if err := h.BodyParserValidator(c, new(smsgateway.DeviceSettings)); err != nil {

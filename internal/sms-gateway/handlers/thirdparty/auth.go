@@ -16,6 +16,23 @@ import (
 	"go.uber.org/zap"
 )
 
+type JWTScope string
+
+const (
+	ScopeMessagesSend   JWTScope = "messages:send"
+	ScopeMessagesRead   JWTScope = "messages:read"
+	ScopeMessagesList   JWTScope = "messages:list"
+	ScopeMessagesCancel JWTScope = "messages:cancel"
+	ScopeDevicesList    JWTScope = "devices:list"
+	ScopeDevicesDelete  JWTScope = "devices:delete"
+	ScopeTokensManage   JWTScope = "tokens:manage"
+)
+
+type TokenRequest struct {
+	Scopes []JWTScope `json:"scopes" validate:"required,dive,required" example:"messages:send,messages:read"`
+	TTL    int64      `json:"ttl" validate:"min=60,max=2592000" example:"3600"`
+}
+
 type AuthHandler struct {
 	base.Handler
 
@@ -37,23 +54,23 @@ func NewAuthHandler(
 
 func (h *AuthHandler) Register(router fiber.Router) {
 	router.Use(h.errorHandler)
-	router.Post("/token", permissions.RequireScope(ScopeTokensManage), userauth.WithUserID(h.postToken))
+	router.Post("/token", permissions.RequireScope(string(ScopeTokensManage)), userauth.WithUserID(h.postToken))
 	router.Post(
 		"/token/refresh",
 		permissions.RequireScope(ScopeTokensRefresh, permissions.WithExact()),
 		h.postRefreshToken,
 	)
-	router.Delete("/token/:jti", permissions.RequireScope(ScopeTokensManage), userauth.WithUserID(h.deleteToken))
+	router.Delete("/token/:jti", permissions.RequireScope(string(ScopeTokensManage)), userauth.WithUserID(h.deleteToken))
 }
 
 //	@Summary		Generate token
 //	@Description	Generate new access token with specified scopes and ttl
 //	@Security		ApiAuth
 //	@Security		JWTAuth
-//	@Tags			User, Auth
+//	@Tags			Auth
 //	@Accept			json
 //	@Produce		json
-//	@Param			request	body		smsgateway.TokenRequest		true	"Request"
+//	@Param			request	body		TokenRequest				true	"Request"
 //	@Success		201		{object}	smsgateway.TokenResponse	"Token"
 //	@Failure		400		{object}	smsgateway.ErrorResponse	"Invalid request"
 //	@Failure		401		{object}	smsgateway.ErrorResponse	"Unauthorized"
@@ -64,15 +81,20 @@ func (h *AuthHandler) Register(router fiber.Router) {
 //
 // Generate token.
 func (h *AuthHandler) postToken(userID string, c *fiber.Ctx) error {
-	req := new(smsgateway.TokenRequest)
+	req := new(TokenRequest)
 	if err := h.BodyParserValidator(c, req); err != nil {
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
+
+	scopes := make([]string, len(req.Scopes))
+	for i, s := range req.Scopes {
+		scopes[i] = string(s)
 	}
 
 	pair, err := h.jwtSvc.GenerateTokenPair(
 		c.Context(),
 		userID,
-		req.Scopes,
+		scopes,
 		time.Duration(req.TTL)*time.Second, //nolint:gosec // validated in the service
 	)
 	if err != nil {
@@ -91,7 +113,7 @@ func (h *AuthHandler) postToken(userID string, c *fiber.Ctx) error {
 //	@Summary		Refresh token
 //	@Description	Refresh access token with specified refresh token
 //	@Security		JWTAuth
-//	@Tags			User, Auth
+//	@Tags			Auth
 //	@Produce		json
 //	@Success		201	{object}	smsgateway.TokenResponse	"Token"
 //	@Failure		401	{object}	smsgateway.ErrorResponse	"Unauthorized"
@@ -122,7 +144,7 @@ func (h *AuthHandler) postRefreshToken(c *fiber.Ctx) error {
 //	@Description	Revoke access token with specified jti
 //	@Security		ApiAuth
 //	@Security		JWTAuth
-//	@Tags			User, Auth
+//	@Tags			Auth
 //	@Produce		json
 //	@Param			jti	path	string	true	"JWT ID"
 //	@Success		204	"No Content"
